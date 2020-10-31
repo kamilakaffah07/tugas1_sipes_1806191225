@@ -36,21 +36,25 @@ public class PesawatModel {
     private String tempatDibuat;
 
     @NotNull
-    @DateTimeFormat(pattern = "dd-mm-yyyy")
     @Column(name = "tanggal_dibuat", nullable = false)
-    private Date tanggalDibuat;
+    private String tanggalDibuat;
 
     @NotNull
     @Size(max = 255)
     @Column(name = "jenis_pesawat", nullable = false)
     private String jenisPesawat;
 
+    @NotNull
+    @Size(max = 255)
+    @Column(name = "tipe_temp", nullable = false)
+    private String tipe_temp;
+
 
     @OneToMany(mappedBy = "pesawat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PenerbanganModel> listPenerbangan;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_tipe", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_tipe", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private TipeModel tipe;
@@ -65,6 +69,14 @@ public class PesawatModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTipe_temp() {
+        return tipe_temp;
+    }
+
+    public void setTipe_temp(String tipe_temp) {
+        this.tipe_temp = tipe_temp;
     }
 
     public String getMaskapai() {
@@ -91,11 +103,11 @@ public class PesawatModel {
         this.tempatDibuat = tempatDibuat;
     }
 
-    public Date getTanggalDibuat() {
+    public String getTanggalDibuat() {
         return tanggalDibuat;
     }
 
-    public void setTanggalDibuat(Date tanggalDibuat) {
+    public void setTanggalDibuat(String tanggalDibuat) {
         this.tanggalDibuat = tanggalDibuat;
     }
 

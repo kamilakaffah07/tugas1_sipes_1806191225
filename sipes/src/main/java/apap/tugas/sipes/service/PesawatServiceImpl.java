@@ -17,7 +17,13 @@ public class PesawatServiceImpl implements PesawatService {
     PesawatDb pesawatDb;
 
     @Override
-    public List<PesawatModel> getPesawatList() { return pesawatDb.findAll(Sort.by(Sort.Direction.DESC, "id")); }
+    public List<PesawatModel> getPesawatList() { return pesawatDb.findAll(); }
+
+    @Override
+    public void addPesawat(PesawatModel pesawat){ pesawatDb.save(pesawat);}
+
+    @Override
+    public PesawatModel getPesawatById(Long id){ return pesawatDb.findById(id).get(); }
 
 }
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Add Pesawat</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <h3>Tambah Pesawat</h3>
+    <form th:action="@{/pesawat/tambah}"th:object="${pesawat}" method = "POST">
+        Maskapai <br>
+        <input type="text" name="maskapai"/>
+        <br><br>
+        Tanggal Dibuat <br>
+        <input type="text" name="tanggalDibuat"/>
+        <br><br>
+        Tempat Dibuat <br>
+        <input type="text" name="tempatDibuat"/>
+        <br><br>
+        Jenis <br>
+        <select name="jenisPesawat">
+            <option value="Komersial">Komersial</option>
+            <option value="Militer">Militer</option>
+        </select>
+        <br><br>
+        Tipe <br>
+        <select name="tipe_temp">
+            <option value="Boeing">Boeing</option>
+            <option value="ATR">ATR</option>
+            <option value="Airbus">Airbus</option>
+            <option value="Bombardier">Bombardier</option>
+        </select>
+        <button type = "submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>

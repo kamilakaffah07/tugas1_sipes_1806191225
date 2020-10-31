@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>View Pesawat</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="text-center align-middle">
+<section>
+    <br>
+    <h2>Detail Pesawat</h2>
+    <br>
+    <h3 th:text="'Nomor Seri Pesawat '+ ${pesawat.nomorSeri}"></h3>
+    <h3 th:text="'Jenis Pesawat '+ ${pesawat.jenisPesawat}"></h3>
+    <h3 th:text="'Nama Tipe Pesawat '+ ${pesawat.tipe.nama}"></h3>
+    <h3 th:text="'Maskapai '+ ${pesawat.maskapai}"></h3>
+    <h3 th:text="'Tempat dibuat '+ ${pesawat.tempatDibuat}"></h3>
+    <h3 th:text="'Tanggal dibuat '+ ${pesawat.tanggalDibuat}"></h3>
+</section>
+
+<section>
+    <h2>Daftar Teknisi Pesawat</h2>
+    <div th:if="${teknisi>0}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Nomor Telepon</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="teknisi, iterationStatus : ${pesawat.listPesawatTeknisi}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${teknisi.nama}"></td>
+                <td th:text="${teknisi.nomorTelepon}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:unless="${teknisi < 0}">
+        <h2 th:text = "'Data teknisi belum dimasukkan'"></h2>
+    </div>
+</section>
+</div>
+</body>
+</html>

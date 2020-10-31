@@ -7,7 +7,12 @@
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
+<br>
 <h2>Daftar Pesawat</h2>
+<br>
+<a th:href="@{/pesawat/tambah}" class="btn btn-primary"> + Tambah Pesawat </a>
+<br><br>
+<div class="text-center align-middle">
 <div th:if="${listPesawat.size() > 0}">
     <table class="table">
         <thead>
@@ -24,11 +29,11 @@
         <tr th:each="pesawat, iterationStatus : ${listPesawat}">
             <td th:text="${iterationStatus.count}"></td>
             <td th:text="${pesawat.nomorSeri}"></td>
-            <td th:text="${pesawat.tipePesawat}"></td>
+            <td th:text="${pesawat.tipe.nama}"></td>
             <td th:text="${pesawat.jenisPesawat}"></td>
             <td th:text="${pesawat.maskapai}"></td>
             <td>
-                <a class="btn btn-info" th:href="@{/pesawat/view?idPesawat=}+${pesawat.id}">Lihat</a>
+                <a class="btn btn-info" th:href="@{/pesawat/}+${pesawat.id}">Lihat</a>
                 <a class="btn btn-warning" th:href="@{/pesawat/change/}+${pesawat.id}">Ubah</a>
                 <a class="btn btn-danger" th:href="@{/pesawat/delete/}+${pesawat.id}">Hapus</a>
             </td>
@@ -38,6 +43,7 @@
 </div>
 <div th:if="${listPesawat.size() == 0}">
     <h2 th:text="'Tidak ada daftar pesawat'"></h2>
+</div>
 </div>
 </body>
 </html>

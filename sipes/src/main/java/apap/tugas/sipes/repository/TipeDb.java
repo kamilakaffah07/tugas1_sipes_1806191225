@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface TipeDb extends JpaRepository<TipeModel,Long> {
     Optional<TipeModel> findById(Long Id);
+    Optional<TipeModel> findByNama(String Nama);
 
 }
