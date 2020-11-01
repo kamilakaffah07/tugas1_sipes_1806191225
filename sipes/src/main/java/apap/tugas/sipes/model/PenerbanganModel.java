@@ -3,12 +3,13 @@ package apap.tugas.sipes.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "penerbangan")
@@ -30,8 +31,10 @@ public class PenerbanganModel implements Serializable {
     private String kodeBandaraTujuan;
 
     @NotNull
+    @DateTimeFormat(pattern = "yyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     @Column(name = "waktu_berangkat", nullable = false)
-    private Timestamp waktuBerangkat;
+    private Date waktuBerangkat;
 
     @NotNull
     @Size(max = 255)
@@ -39,8 +42,9 @@ public class PenerbanganModel implements Serializable {
     private String nomorPenerbangan;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_pesawat", referencedColumnName = "id", nullable = false)
+    //@ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_pesawat", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private PesawatModel pesawat;
@@ -69,11 +73,11 @@ public class PenerbanganModel implements Serializable {
         this.kodeBandaraTujuan = kodeBandaraTujuan;
     }
 
-    public Timestamp getWaktuBerangkat() {
+    public Date getWaktuBerangkat() {
         return waktuBerangkat;
     }
 
-    public void setWaktuBerangkat(Timestamp waktuBerangkat) {
+    public void setWaktuBerangkat(Date waktuBerangkat) {
         this.waktuBerangkat = waktuBerangkat;
     }
 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Data Penerbangan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br><br>
+<div>
+    <h1 class="text-center align-middle">Form Ubah Penerbangan</h1>
+    <form th:action="@{/penerbangan/ubah}" th:object="${penerbangan}" method="POST" style="width: 50%; margin: auto;">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="form-group">
+            <label>Kode Penerbangan</label>
+            <input  th:field="*{nomorPenerbangan}" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Kode Bandara Asal</label>
+            <input  th:field="*{kodeBandaraAsal}" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Kode Bandara Tujuan</label>
+            <input  th:field="*{kodeBandaraTujuan}" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Waktu Berangkat</label>
+            <input  th:value="${date}" th:field="*{waktuBerangkat}" type="date" class="form-control">
+        </div>
+
+        <div class="button-action">
+            <a href="/penerbangan" class="btn btn-outline-secondary m-3" style="margin-left: 0;">Batal</a>
+            <button type="submit" class="btn btn-primary m-3" style="margin-right:0; margin-left:0;">Simpan</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

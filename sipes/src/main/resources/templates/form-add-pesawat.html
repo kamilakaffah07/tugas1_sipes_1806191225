@@ -8,33 +8,47 @@
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
-<div class="container-fluid">
-    <h3>Tambah Pesawat</h3>
-    <form th:action="@{/pesawat/tambah}"th:object="${pesawat}" method = "POST">
-        Maskapai <br>
-        <input type="text" name="maskapai"/>
-        <br><br>
-        Tanggal Dibuat <br>
-        <input type="text" name="tanggalDibuat"/>
-        <br><br>
-        Tempat Dibuat <br>
-        <input type="text" name="tempatDibuat"/>
-        <br><br>
-        Jenis <br>
-        <select name="jenisPesawat">
-            <option value="Komersial">Komersial</option>
-            <option value="Militer">Militer</option>
-        </select>
-        <br><br>
-        Tipe <br>
-        <select name="tipe_temp">
-            <option value="Boeing">Boeing</option>
-            <option value="ATR">ATR</option>
-            <option value="Airbus">Airbus</option>
-            <option value="Bombardier">Bombardier</option>
-        </select>
-        <button type = "submit">Submit</button>
+<br><br>
+<div>
+    <h1 class="text-center align-middle">Form Tambah Penerbangan</h1>
+    <form th:action="@{/pesawat/tambah}" th:object="${pesawat}" method="POST" style="width: 50%; margin: auto;">
+        <input th:value="*{id}" type="hidden">
+        <div class="form-group">
+            <label>Maskapai</label>
+            <input  th:field="*{maskapai}" type="text" class="form-control" placeholder="masukkan nama maskapai">
+        </div>
+        <div class="form-group">
+            <label>Tanggal Dibuat</label>
+            <input  th:value="${date}" th:field="*{tanggalDibuat}" type="date" placeholder="dd/mm/yyy" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Tempat Dibuat</label>
+            <input  th:field="*{tempatDibuat}" type="text" class="form-control" placeholder="masukan tempat pesawat dibuat">
+        </div>
+        <div class="form-group">
+            <label>Jenis</label>
+            <select th:field="*{jenisPesawat}" type="text" class="form-control">
+                <option value="Komersial">Komersial</option>
+                <option value="Militer">Militer</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Tipe</label>
+            <select th:field="*{tipe_temp}" type="text" class="form-control">
+                <option value="Boeing">Boeing</option>
+                <option value="ATR">ATR</option>
+                <option value="Airbus">Airbus</option>
+                <option value="Bombardier">Bombardier</option>
+            </select>
+        </div>
+
+        <div class="button-action">
+            <a href="/penerbangan" class="btn btn-outline-secondary m-3" style="margin-left: 0;">Batal</a>
+            <button type="submit" class="btn btn-primary m-3" style="margin-right: 0; margin-left:0;">Simpan</button>
+        </div>
     </form>
 </div>
 </body>
 </html>
+
+

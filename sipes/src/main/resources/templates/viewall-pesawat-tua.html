@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>View All Pesawat Tua</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br>
+<h2>Daftar Pesawat Tua</h2>
+<br>
+<br><br>
+<div class="text-center align-middle">
+    <div th:if="${listPesawatTua.size() > 0}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Nomor Seri</th>
+                <th>Jenis Pesawat</th>
+                <th>Tipe Pesawat</th>
+                <th>Usia</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pesawat, iterationStatus : ${listPesawatTua}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${pesawat.nomorSeri}"></td>
+                <td th:text="${pesawat.jenisPesawat}"></td>
+                <td th:text="${pesawat.tipe.nama}"></td>
+                <td th:text="${pesawat.usia} + ' tahun'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${listPesawatTua.size() == 0}">
+        <h2 th:text="'Tidak ada daftar pesawat tua'"></h2>
+    </div>
+</div>
+</body>
+</html>

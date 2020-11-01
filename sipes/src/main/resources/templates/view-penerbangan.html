@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>View Penerbangan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="text-center align-middle">
+    <div th:if="${flag == 0}">
+        <section>
+            <br>
+            <h2>Detail Penerbangan</h2>
+            <br>
+            <h3 th:text="'Kode Penerbangan          '+ ${penerbangan.nomorPenerbangan}"></h3>
+            <h3 th:text="'Kode Bandara Asal          '+ ${penerbangan.kodeBandaraAsal}"></h3>
+            <h3 th:text="'Kode Bandara Tujuan          '+ ${penerbangan.kodeBandaraTujuan}"></h3>
+            <h3 th:text="'Waktu Berangkat          '+ ${penerbangan.waktuBerangkat}"></h3>
+            <h3 th:text="'Nomor Seri Pesawat          Belum diassign pesawat'"></h3>
+        </section>
+    </div>
+    <div th:if="${flag == 1}">
+        <section>
+            <br>
+            <h2>Detail Penerbangan</h2>
+            <br>
+            <h3 th:text="'Kode Penerbangan          '+ ${penerbangan.nomorPenerbangan}"></h3>
+            <h3 th:text="'Kode Bandara Asal          '+ ${penerbangan.kodeBandaraAsal}"></h3>
+            <h3 th:text="'Kode Bandara Tujuan          '+ ${penerbangan.kodeBandaraTujuan}"></h3>
+            <h3 th:text="'Waktu Berangkat          '+ ${penerbangan.waktuBerangkat}"></h3>
+            <h3 th:text="'Nomor Seri Pesawat          '+ ${penerbangan.pesawat.nomorSeri}"></h3>
+        </section>
+    </div>
+</div>
+</body>
+</html>

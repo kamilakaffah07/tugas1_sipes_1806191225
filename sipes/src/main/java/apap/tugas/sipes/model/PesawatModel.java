@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
 
+
 @Entity
 @Table(name = "pesawat")
 public class PesawatModel {
@@ -30,6 +31,17 @@ public class PesawatModel {
     @Column(name = "nomor_seri", nullable = false, unique = true)
     private String nomorSeri;
 
+    @Column(name = "usia")
+    private long usia;
+
+    public long getUsia() {
+        return usia;
+    }
+
+    public void setUsia(long usia) {
+        this.usia = usia;
+    }
+
     @NotNull
     @Size(max = 255)
     @Column(name = "tempat_dibuat", nullable = false)
@@ -37,7 +49,7 @@ public class PesawatModel {
 
     @NotNull
     @Column(name = "tanggal_dibuat", nullable = false)
-    private String tanggalDibuat;
+    private Date tanggalDibuat;
 
     @NotNull
     @Size(max = 255)
@@ -54,7 +66,7 @@ public class PesawatModel {
     private List<PenerbanganModel> listPenerbangan;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_tipe", referencedColumnName = "id")
+    @JoinColumn(name = "id_tipe", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private TipeModel tipe;
@@ -62,6 +74,19 @@ public class PesawatModel {
     @OneToMany(mappedBy = "pesawat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PesawatTeknisiModel> listPesawatTeknisi;
 
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "teknisiId", referencedColumnName = "id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private List<TeknisiModel> listTeknisi;
+
+    public List<TeknisiModel> getListTeknisi() {
+        return listTeknisi;
+    }
+
+    public void setListTeknisi(List<TeknisiModel> listTeknisi) {
+        this.listTeknisi = listTeknisi;
+    }
 
     public Long getId() {
         return id;
@@ -103,11 +128,11 @@ public class PesawatModel {
         this.tempatDibuat = tempatDibuat;
     }
 
-    public String getTanggalDibuat() {
+    public Date getTanggalDibuat() {
         return tanggalDibuat;
     }
 
-    public void setTanggalDibuat(String tanggalDibuat) {
+    public void setTanggalDibuat(Date tanggalDibuat) {
         this.tanggalDibuat = tanggalDibuat;
     }
 

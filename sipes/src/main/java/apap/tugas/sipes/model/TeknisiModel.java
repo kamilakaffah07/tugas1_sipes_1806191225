@@ -1,5 +1,8 @@
 package apap.tugas.sipes.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,7 +27,20 @@ public class TeknisiModel {
     private String nomorTelepon;
 
     @OneToMany(mappedBy = "teknisi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PesawatTeknisiModel> listPesawatTeknisi;
+
+    @ManyToMany(mappedBy = "listTeknisi")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<PesawatModel> listPesawat;
+
+    public List<PesawatModel> getListPesawat() {
+        return listPesawat;
+    }
+
+    public void setListPesawat(List<PesawatModel> listPesawat) {
+        this.listPesawat = listPesawat;
+    }
 
     public Long getId() {
         return id;

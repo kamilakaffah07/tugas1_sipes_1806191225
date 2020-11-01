@@ -13,12 +13,12 @@
     <br>
     <h2>Detail Pesawat</h2>
     <br>
-    <h3 th:text="'Nomor Seri Pesawat '+ ${pesawat.nomorSeri}"></h3>
-    <h3 th:text="'Jenis Pesawat '+ ${pesawat.jenisPesawat}"></h3>
-    <h3 th:text="'Nama Tipe Pesawat '+ ${pesawat.tipe.nama}"></h3>
-    <h3 th:text="'Maskapai '+ ${pesawat.maskapai}"></h3>
-    <h3 th:text="'Tempat dibuat '+ ${pesawat.tempatDibuat}"></h3>
-    <h3 th:text="'Tanggal dibuat '+ ${pesawat.tanggalDibuat}"></h3>
+    <p th:text="'Nomor Seri Pesawat          '+ ${pesawat.nomorSeri}"></p>
+    <p th:text="'Jenis Pesawat          '+ ${pesawat.jenisPesawat}"></p>
+    <p th:text="'Nama Tipe Pesawat          '+ ${pesawat.tipe.nama}"></p>
+    <p th:text="'Maskapai          '+ ${pesawat.maskapai}"></p>
+    <p th:text="'Tempat dibuat          '+ ${pesawat.tempatDibuat}"></p>
+    <p th:text="'Tanggal dibuat          '+ ${pesawat.tanggalDibuat}"></p>
 </section>
 
 <section>
@@ -43,7 +43,7 @@
         </table>
     </div>
     <div th:unless="${teknisi < 0}">
-        <h2 th:text = "'Data teknisi belum dimasukkan'"></h2>
+        <p th:text = "'Data teknisi belum dimasukkan'"></p>
     </div>
 </section>
 </div>

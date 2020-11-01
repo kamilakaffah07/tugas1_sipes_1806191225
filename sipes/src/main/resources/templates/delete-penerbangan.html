@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Delete Penerbangan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid text-center align-middle">
+    <div th:if="${flag == 0}">
+        <h2 th:text="'Penerbangan ' + ${kodePenerbangan}"></h2>
+        <h2 th:text="'berhasil dihapus'"></h2>
+        <br>
+        <td><a th:href="@{/penerbangan}">kembali ke Daftar Penerbangan</a></td>
+    </div>
+    <div th:if="${flag == 1}">
+        <h2 th:text="'Penerbangan ' + ${kodePenerbangan}"></h2>
+        <h2 th:text="'gagal dihapus'"></h2>
+        <br>
+        <td><a th:href="@{/penerbangan}">kembali ke Daftar Penerbangan</a></td>
+    </div>
+</div>
+</body>
+</html>

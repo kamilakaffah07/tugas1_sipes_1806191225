@@ -12,23 +12,9 @@ public interface PesawatService {
 
     PesawatModel getPesawatById(Long id);
 
-    /** Method untuk menambahkan Hotel
-    void addHotel(HotelModel hotel);
+    PesawatModel updatePesawat(PesawatModel pesawat);
 
-    //Method untuk mendapatkan daftar Hotel yang telah tersimpan
-    List<HotelModel> getHotelList();
-
-    //Method untuk mendapatkan data sebuah hotel berdasarkan id hotel
-    HotelModel getHotelByIdHotel(Long idHotel);
-
-    // Method untuk update hotel
-    HotelModel updateHotel(HotelModel hotel);
-
-    //Method untuk update nomor telepon
-    //HotelModel udpateNomorTeleponHotel(String idHotel, String noTeleponBaru);
-
-    //Method untuk hapus hotel
-    void deleteHotel(Long idHotel);*/
+    long usiaPesawat(PesawatModel pesawat);
 
 }
 

@@ -5,6 +5,8 @@ import apap.tugas.sipes.model.PesawatTeknisiModel;
 import apap.tugas.sipes.model.TeknisiModel;
 import apap.tugas.sipes.model.TipeModel;
 import apap.tugas.sipes.service.PesawatService;
+import apap.tugas.sipes.service.PesawatTeknisiService;
+import apap.tugas.sipes.service.TeknisiService;
 import apap.tugas.sipes.service.TipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
  import org.springframework.web.bind.annotation.RequestParam;
 import java.sql.Date;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -28,6 +32,12 @@ public class PesawatController {
 
     @Autowired
     private TipeService tipeService;
+
+    @Autowired
+    private TeknisiService teknisiService;
+
+    @Autowired
+    private PesawatTeknisiService pesawatTeknisiService;
 
 
     @GetMapping("/")
@@ -44,6 +54,23 @@ public class PesawatController {
         return "viewall-pesawat";
     }
 
+    @RequestMapping("/pesawat/pesawat-tua")
+    public String listPesawatTua(Model model){
+
+        // Mendapatkan semua PesawatModel
+        List<PesawatModel> listPesawat = pesawatService.getPesawatList();
+        List<PesawatModel> listPesawatTua = new ArrayList();
+        for (PesawatModel pesawat : listPesawat){
+            if (pesawatService.usiaPesawat(pesawat)>10){
+                pesawat.setUsia(pesawatService.usiaPesawat(pesawat));
+                listPesawatTua.add(pesawat);
+            }
+        }
+        model.addAttribute("listPesawatTua", listPesawatTua);
+        return "viewall-pesawat-tua";
+    }
+
+
     @GetMapping("/pesawat/tambah")
     public String addPesawatFormPage(Model model){
         model.addAttribute("pesawat", new PesawatModel());
@@ -51,16 +78,18 @@ public class PesawatController {
         return "form-add-pesawat";
     }
 
-    @PostMapping("/pesawat/tambah")
+    @PostMapping(value = "/pesawat/tambah")
     public String addPesawatSubmit(
             @ModelAttribute PesawatModel pesawat,
             Model model){
+
         String jenis;
         if (pesawat.getJenisPesawat().equals("Komersial")) {
             jenis = "1";
         } else {
             jenis = "2";
         }
+
         TipeModel tipe_sesungguhnya = tipeService.getTipeByNama(pesawat.getTipe_temp());
         pesawat.setTipe(tipe_sesungguhnya);
         String tipe;
@@ -74,18 +103,20 @@ public class PesawatController {
             tipe = "BB";
         }
 
-        String tahun_temp = pesawat.getTanggalDibuat().substring(6);
-        String tahun = tahun_temp.substring(3,4) + tahun_temp.substring(2,3)
-                + tahun_temp.substring(1,2) + tahun_temp.substring(0,1);
-        int tahunplus = Integer.parseInt(pesawat.getTanggalDibuat().substring(6)) + 8;
+        LocalDate localDate = pesawat.getTanggalDibuat().toLocalDate();
+        int tahun = localDate.getYear();
+        String tahunString = Integer.toString(tahun);
+        String reverse = new StringBuffer(tahunString).reverse().toString();
+
+        int tahunplus = tahun + 8;
 
         Random r = new Random();
-        char a = (char)(r.nextInt(26) + 'a');
-        char b = (char)(r.nextInt(26) + 'a');
+        char a = (char)(r.nextInt(26) + 'A');
+        char b = (char)(r.nextInt(26) + 'A');
         String random = String.valueOf(a) + String.valueOf(b);
-        String random1 = random.toUpperCase();
 
-        String nomorSeri = jenis + tipe + tahun + tahunplus + random1;
+        String nomorSeri = jenis + tipe + reverse + tahunplus + random;
+
         pesawat.setNomorSeri(nomorSeri);
 
         pesawatService.addPesawat(pesawat);
@@ -94,6 +125,7 @@ public class PesawatController {
 
         return "add-pesawat";
     }
+
 
     @GetMapping("/pesawat/{idPesawat}")
     public String viewDetailPesawat(
@@ -107,5 +139,33 @@ public class PesawatController {
         return "view-pesawat";
     }
 
+    @GetMapping("/pesawat/ubah/{idPesawat}")
+    public String changePesawatFormPage(
+            @PathVariable Long idPesawat,
+            Model model
+    ){
+
+        PesawatModel pesawat = pesawatService.getPesawatById(idPesawat);
+        model.addAttribute("pesawat", pesawat);
+        return "form-update-pesawat";
+        }
+
+    @PostMapping("/pesawat/ubah")
+    public String changePesawatFormSubmit(
+
+            @ModelAttribute PesawatModel pesawat,
+            Model model
+    ){
+        PesawatModel pesawatUpdated = pesawatService.updatePesawat(pesawat);
+        model.addAttribute("pesawat", pesawatUpdated);
+        return "update-pesawat";
+
+    }
+
+
+
 }
+
+
+
 
